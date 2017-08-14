@@ -127,7 +127,7 @@ elseif inx == 2
         imu_4_data = imu_4_data(:,1:length(imu_2_data(1,:)));
     end
     
-    if exist('imu_4_data','var')
+    if exist('imu_5_data','var')
         imu_5_data = imu_5_data(:,1:length(imu_2_data(1,:)));
     end
 

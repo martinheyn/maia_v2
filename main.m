@@ -9,7 +9,7 @@ Tool_MissionSelect
 userrequest = 1;
 
 while userrequest == 1
-    inputOptions = {'Import IMU Data','Import Ship Data','Cut Signal','Rotation Finder','Acceleration statistics','Extreme Values','Done :)'};
+    inputOptions = {'Import IMU Data','Import Ship Data','Cut Signal','Filter Signal','Rotation Finder','Acceleration statistics','Extreme Values','Done :)'};
         defSelection = inputOptions{end};
         button = bttnChoiseDialog(inputOptions,'Hei der, velkomme',defSelection,'What will you do?'); 
 
@@ -24,27 +24,19 @@ while userrequest == 1
             case 3
                 run_cutting
                 userrequest = 1;
-			case 4
-                run_rotationfinder
+            case 4
+                run_filtersignal;
                 userrequest = 1;
 			case 5
+                run_rotationfinder
+                userrequest = 1;
+			case 6
 				run_accl_statistics;
 				userrequest = 1;
-            case 6
+            case 7
 				run_extreme_values;
                 userrequest = 1;
-            case 7
-				run_plotcompare;
-                userrequest = 1;
             case 8
-                userrequest = 1;
-            case 9
-                userrequest = 1;
-            case 10
-                userrequest = 1;
-            case 11
-                userrequest = 1;
-            case end
                 userrequest = 0;
         end
         clear inputOptions defSelection button 

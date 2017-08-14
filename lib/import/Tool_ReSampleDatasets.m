@@ -3,6 +3,7 @@
 % it in the ReSampledData folder                                         % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clc;
+basefreq = 400; % The sampling rate of the sensors
 
 %---------------------------------------------------------------------%
 % PARAMETER TO SET 
@@ -59,7 +60,6 @@ fprintf('o-----------------------------------------------o\n\n');
 % end
 
 % Create a downsampled dataset, with a given frequency
-fprintf('\t -> Re-sampling datasets to %d Hz\n',freq_d);
 
 if exist('imu_1_csv','var')
     if size(imu_1_csv,2) > 20
@@ -71,24 +71,50 @@ if exist('imu_1_csv','var')
     end
 end
 
+fprintf('\t -> Resample first to %d Hz to have equal sample rate\n',basefreq);
+
 if exist('imu_1_csv','var')
-    [imu_1_data time_1_c data time_r] = datasetResampler(imu_1_csv,freq_d);
+    [imu_1_data_temp time_1_c_temp data time_r] = datasetResampler(imu_1_csv,basefreq);
 end
 
 if exist('imu_2_csv','var')
-    [imu_2_data time_2_c data time_r] = datasetResampler(imu_2_csv,freq_d);
+    [imu_2_data_temp time_2_c_temp data time_r] = datasetResampler(imu_2_csv,basefreq);
 end
 
 if exist('imu_3_csv','var')
-    [imu_3_data time_3_c data time_r] = datasetResampler(imu_3_csv,freq_d);
+    [imu_3_data_temp time_3_c_temp data time_r] = datasetResampler(imu_3_csv,basefreq);
 end
 
 if exist('imu_4_csv','var')
-    [imu_4_data time_4_c data time_r] = datasetResampler(imu_4_csv,freq_d);
+    [imu_4_data_temp time_4_c_temp data time_r] = datasetResampler(imu_4_csv,basefreq);
 end
 
 if exist('imu_5_csv','var')
-    [imu_5_data time_5_c data time_r] = datasetResampler(imu_5_csv,freq_d);
+    [imu_5_data_temp time_5_c_temp data time_r] = datasetResampler(imu_5_csv,basefreq);
+end
+
+fprintf('\t -> Re-sampling datasets to %d Hz\n',freq_d);
+
+freq_frac = ceil(basefreq/freq_d);
+
+if exist('imu_1_csv','var')
+    [imu_1_data,time_1_c] = datasetDecimator(imu_1_data_temp,time_1_c_temp,freq_d,basefreq);
+end
+
+if exist('imu_2_csv','var')
+    [imu_2_data,time_2_c] = datasetDecimator(imu_2_data_temp,time_2_c_temp,freq_d,basefreq);
+end
+
+if exist('imu_3_csv','var')
+    [imu_3_data,time_3_c] = datasetDecimator(imu_3_data_temp,time_3_c_temp,freq_d,basefreq);
+end
+
+if exist('imu_4_csv','var')
+    [imu_4_data,time_4_c] = datasetDecimator(imu_4_data_temp,time_4_c_temp,freq_d,basefreq);
+end
+
+if exist('imu_5_csv','var')
+    [imu_5_data,time_5_c] = datasetDecimator(imu_5_data_temp,time_5_c_temp,freq_d,basefreq);
 end
 
 fprintf('\t -> Re-sampling to %d Hz done\n',freq_d);
