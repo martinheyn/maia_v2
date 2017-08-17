@@ -25,7 +25,7 @@ usermainrequest = 1;
 
 while usermainrequest == 1
 
-    inputOptions = {'SELECT DATA','DIS_FIT','CDF_COMP','DOF_CDF','REC-PAR-ESTI','1DACCPLOT','2DACCPlot','ICEDETECT','ZEROCROSS','MOVIE','DONE'};
+    inputOptions = {'SELECT DATA','DIS_FIT','CDF_COMP','DOF_CDF','2D-ConfiIntervall','1DACCPLOT','2DACCPlot','ICEDETECT','ZEROCROSS','MOVIE','DONE'};
     defSelection = inputOptions{end};
     button = bttnChoiseDialog(inputOptions,'Make it extreme!',defSelection,'Operation select?'); 
     %button = questdlg('Make it extreme!','Operation selection','DIS_FIT','EXTREME','END','DIS_FIT');
@@ -89,66 +89,18 @@ while usermainrequest == 1
             % Ask for IMU and DOF
             [data,selectedIMU,selectedDOF] = maia_selectIMUDOF(imu_data);
             h = figure;
-            [result.pd_n,result.pd_t,result.pd_l,result.pd_c] = maia_comparecdf(data(:,2),strcat(selectedIMU,{' '},selectedDOF),h);
+            [result.pd_n,result.pd_t,result.pd_c] = plotpdfoft(data(:,2),h);
                         
         case 5
-        
-           % userinput = inputdlg({'Enter the sample blocksize please'},'Input',1,...
-           %     {'600'});    
-           % userinBlock = str2double(userinput{1}); 
-           %for m = 1:1:4
-               m = 2;
-               imuid = strcat('IMU',num2str(m))
-           
-               for k = 1:1:4
-                   estimatedresults.lp = 10;
-                   estimatedresults.downsampled = 20;
-                   
-                   if k == 1
-                       userinBlock = 2400;
-                       blocklength = strcat('Blocklength',num2str(userinBlock))
-                       [estimateresults.(imuid).(blocklength).norm.cdfs.pd,estimateresults.(imuid).(blocklength).norm.cdfs.pci,estimateresults.(imuid).(blocklength).norm.cdfs.p] = maia_recursivecdfestimate(imu_data,'IMU4','norm',userinBlock);
-                   elseif k == 2
-                       userinBlock = 1200;
-                       blocklength = strcat('Blocklength',num2str(userinBlock))
-                       [estimateresults.(imuid).(blocklength).norm.cdfs.pd,estimateresults.(imuid).(blocklength).norm.cdfs.pci,estimateresults.(imuid).(blocklength).norm.cdfs.p] = maia_recursivecdfestimate(imu_data,'IMU4','norm',userinBlock);
-
-                   elseif k == 3
-                       userinBlock = 600;
-                       blocklength = strcat('Blocklength',num2str(userinBlock))
-                       [estimateresults.(imuid).(blocklength).norm.cdfs.pd,estimateresults.(imuid).(blocklength).norm.cdfs.pci,estimateresults.(imuid).(blocklength).norm.cdfs.p] = maia_recursivecdfestimate(imu_data,'IMU4','norm',userinBlock);
-                   elseif k == 4
-                       userinBlock = 200;
-                       blocklength = strcat('Blocklength',num2str(userinBlock))
-                       [estimateresults.(imuid).(blocklength).norm.cdfs.pd,estimateresults.(imuid).(blocklength).norm.cdfs.pci,estimateresults.(imuid).(blocklength).norm.cdfs.p] = maia_recursivecdfestimate(imu_data,'IMU4','norm',userinBlock);
-                   end
-               end
-
-               for k = 1:1:4
-
-                   if k == 1
-                       userinBlock = 2400;
-                       blocklength = strcat('Blocklength',num2str(userinBlock))
-                       [estimateresults.(imuid).(blocklength).t.cdfs.pd,estimateresults.(imuid).(blocklength).t.cdfs.pci,estimateresults.(imuid).(blocklength).t.cdfs.p] = maia_recursivecdfestimate(imu_data,'IMU4','tlocationscale',userinBlock);
-                   elseif k == 2
-                       userinBlock = 1200;
-                       blocklength = strcat('Blocklength',num2str(userinBlock))
-                       [estimateresults.(imuid).(blocklength).t.cdfs.pd,estimateresults.(imuid).(blocklength).t.cdfs.pci,estimateresults.(imuid).(blocklength).t.cdfs.p] = maia_recursivecdfestimate(imu_data,'IMU4','tlocationscale',userinBlock);
- 
-                   elseif k == 3
-                       userinBlock = 600;
-                       blocklength = strcat('Blocklength',num2str(userinBlock))
-                       [estimateresults.(imuid).(blocklength).t.cdfs.pd,estimateresults.(imuid).(blocklength).t.cdfs.pci,estimateresults.(imuid).(blocklength).t.cdfs.p] = maia_recursivecdfestimate(imu_data,'IMU4','tlocationscale',userinBlock);
-
-                   elseif k == 4
-                       userinBlock = 200;
-                       blocklength = strcat('Blocklength',num2str(userinBlock))
-                       [estimateresults.(imuid).(blocklength).t.cdfs.pd,estimateresults.(imuid).(blocklength).t.cdfs.pci,estimateresults.(imuid).(blocklength).t.cdfs.p] = maia_recursivecdfestimate(imu_data,'IMU4','tlocationscale',userinBlock);
-
-                   end
-                   %save('20160508imurecesti_FILT.mat','imu_data')
-               end
-           %end
+            % Ask for IMU and DOF
+            data = zeros(length(imu_data.IMU2.signal_surge),2);
+            temp = maia_selectIMUDOF(imu_data);
+            [data(:,1),~,~] = temp(:,2);
+            temp = maia_selectIMUDOF(imu_data);
+            [data(:,2),~,~] = temp(:,2);
+            clear temp
+            h = figure;
+            [result.mu,result.S,result.nu] = plotbivariate(data,h);
         case 6
             Tool_PlotCompare
         

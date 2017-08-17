@@ -13,7 +13,7 @@
 
 %---------------------------------------------------------------------%
 
-    inputOptions = {'Aligned data','Raw data'};
+    inputOptions = {'Aligned data','Raw data','Selected data'};
         defSelection = inputOptions{end};
         button3 = bttnChoiseDialog(inputOptions,'Hei der, velkomme',defSelection,'What data will you use?'); 
 
@@ -23,6 +23,8 @@
                 imu_data = imu_data_aligned;
             case 2
                 imu_data = imu_data_raw;
+			case 3
+				fprintf('Doing nothing \n');
         end
 
 Tool_CutData
