@@ -22,7 +22,7 @@ nu_temp = 0;
         
         % Parameter estimation bivariate t-distribution
         [mu_temp(:),S_temp(:,:),nu_temp] = fitt(sample);
-        S_temp = sqrt(abs(S_temp));
+        %S_temp = sqrt(abs(S_temp)); CRAP!
         
         mu(k,:) = mu_temp;
         S(k,:,:) = S_temp;
