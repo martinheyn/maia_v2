@@ -64,8 +64,10 @@ function [imu_data_resampled] = resample_IMUstructdata(imu_data,freq_d)
 				
 				[imu_data_resampled.(selectedIMU).signal_sway] = decimate(imu_data.(selectedIMU).signal_sway,freq_frac);
 				
-				[imu_data_resampled.(selectedIMU).signal_heave] = decimate(imu_data.(selectedIMU).signal_heave,freq_frac);
+				[imu_data_resampled.(selectedIMU).signal_heave_ug] = decimate((imu_data.(selectedIMU).signal_heave- 9.81),freq_frac);
 				
+                [imu_data_resampled.(selectedIMU).signal_heave] = imu_data_resampled.(selectedIMU).signal_heave_ug + 9.81;
+                
 				[imu_data_resampled.(selectedIMU).signal_roll] = decimate(imu_data.(selectedIMU).signal_roll,freq_frac);
 				
 				[imu_data_resampled.(selectedIMU).signal_pitch] = decimate(imu_data.(selectedIMU).signal_pitch,freq_frac);

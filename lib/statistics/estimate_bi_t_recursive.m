@@ -29,10 +29,10 @@ nu_temp = 0;
         nu(k) = nu_temp;
         
         % Estimate testing marginal t distribution
-        test_cdf = makedist('tlocationscale','mu',mu_temp(1),'sigma',S_temp(1,1),'nu',nu_temp);
+        test_cdf = makedist('tlocationscale','mu',mu_temp(1),'sigma',sqrt(S_temp(1,1)),'nu',nu_temp);
         [m,p_x1(k),ksstest,cv] = kstest(sample(:,1),'CDF',test_cdf);
         clear test_cdf
-        test_cdf = makedist('tlocationscale','mu',mu_temp(2),'sigma',S_temp(2,2),'nu',nu_temp);
+        test_cdf = makedist('tlocationscale','mu',mu_temp(2),'sigma',sqrt(S_temp(2,2)),'nu',nu_temp);
         [m,p_x2(k),ksstest,cv] = kstest(sample(:,2),'CDF',test_cdf);
         clear test_cdf
         
