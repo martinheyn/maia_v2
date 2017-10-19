@@ -2,8 +2,9 @@ function[g_nu,g_S,g_Snu] = maia_detectchangeintbi(data,S_vec,nu_vec,windowsize)
  
     %[mu0,S0,nu0] = (data(370:1150),:);
     
-    cutdata = data(370:1150,:);
-    [mu0,S0,nu0] = fitt(cutdata);
+    %cutdata = data(370:1150,:);
+    %cutdata = veryclose_ice;
+    [mu0,S0,nu0] = fitt(data);
     
     M = length(data);
     S = zeros(2,2);
@@ -28,8 +29,10 @@ function[g_nu,g_S,g_Snu] = maia_detectchangeintbi(data,S_vec,nu_vec,windowsize)
         datasum1_Snu = sum(log(1+((1/(nu))*datamulti1)));
         
         g_nu(k) =  -((2+nu)/2)*datasum1_nu + ((2+nu0)/2)*datasum0_nu;
-        g_S(k) = + ((2+nu0)/2)*datasum1_S - ((2+nu0)/2)*datasum0_S;
-        g_Snu(k) = +((2+nu)/2)*datasum1_Snu - ((2+nu0)/2)*datasum0_Snu;
+        %g_S(k) = + ((2+nu0)/2)*datasum1_S - ((2+nu0)/2)*datasum0_S;
+        %g_Snu(k) = +((2+nu)/2)*datasum1_Snu - ((2+nu0)/2)*datasum0_Snu;
+        g_S(k) = 0.5*M*(log(det(S0)) - log(det(S))) - ((2+nu0)/2)*datasum1_S + ((2+nu0)/2)*datasum0_S;
+        g_Snu(k) = 0.5*M*(log(det(S0)) - log(det(S))) -((2+nu)/2)*datasum1_Snu + ((2+nu0)/2)*datasum0_Snu;
     end
 
 end
