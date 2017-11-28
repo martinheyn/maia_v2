@@ -12,8 +12,8 @@
 %---------------------------------------------------------------------%
 
 function [imu_data_resampled] = resample_IMUstructdata(imu_data,freq_d)
-		imu_data_resampled.accunits = imu_data.accunits;
-		imu_data_resampled.rotunits = imu_data.rotunits;
+		%imu_data_resampled.accunits = imu_data.accunits;
+		%imu_data_resampled.rotunits = imu_data.rotunits;
 		
 		base_freq = imu_data.frequency;
 		freq_frac = ceil(base_freq / freq_d);
@@ -74,9 +74,9 @@ function [imu_data_resampled] = resample_IMUstructdata(imu_data,freq_d)
 				
 				[imu_data_resampled.(selectedIMU).signal_yaw] = decimate(imu_data.(selectedIMU).signal_yaw,freq_frac);
 				
-				imu_data_resampled.(selectedIMU).R = imu_data.(selectedIMU).R;
+				%imu_data_resampled.(selectedIMU).R = imu_data.(selectedIMU).R;
 				
-				imu_data_resampled.(selectedIMU).alignment = imu_data.(selectedIMU).alignment;
+				%imu_data_resampled.(selectedIMU).alignment = imu_data.(selectedIMU).alignment;
 				
 				imu_data_resampled.(selectedIMU).matdatenum = linspace(imu_data.(selectedIMU).matdatenum(1),imu_data.(selectedIMU).matdatenum(end),length(imu_data_resampled.(selectedIMU).signal_surge));
 			end

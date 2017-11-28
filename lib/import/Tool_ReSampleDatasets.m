@@ -3,7 +3,7 @@
 % it in the ReSampledData folder                                         % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clc;
-basefreq = 400; % The sampling rate of the sensors
+basefreq = 300; % The sampling rate of the sensors
 
 %---------------------------------------------------------------------%
 % PARAMETER TO SET 
