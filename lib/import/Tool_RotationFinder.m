@@ -27,33 +27,33 @@ else
         load(fullfile(file_output,path_output));
         
         try
-            roll_1 = rotations.IMU1.alignment(1);
-            pitch_1 = rotations.IMU1.alignment(2);
-            yaw_1 = rotations.IMU1.alignment(3);
+            roll_1 = rotations.IMU1.alignment(1)*(pi/180);
+            pitch_1 = rotations.IMU1.alignment(2)*(pi/180);
+            yaw_1 = rotations.IMU1.alignment(3)*(pi/180);
         catch
             fprintf('IMU1 data not found')
         end
         
         try
-            roll_2 = rotations.IMU2.alignment(1);
-            pitch_2 = rotations.IMU2.alignment(2);
-            yaw_2 = rotations.IMU2.alignment(3);
+            roll_2 = rotations.IMU2.alignment(1)*(pi/180);
+            pitch_2 = rotations.IMU2.alignment(2)*(pi/180);
+            yaw_2 = rotations.IMU2.alignment(3)*(pi/180);
         catch
             fprintf('IMU2 data not found')
         end
         
-        roll_3 = rotations.IMU3.alignment(1);
-        pitch_3 = rotations.IMU3.alignment(2);
-        yaw_3 = rotations.IMU3.alignment(3);
+        roll_3 = rotations.IMU3.alignment(1)*(pi/180);
+        pitch_3 = rotations.IMU3.alignment(2)*(pi/180);
+        yaw_3 = rotations.IMU3.alignment(3)*(pi/180);
         
-        roll_4 = rotations.IMU4.alignment(1);
-        pitch_4 = rotations.IMU4.alignment(2);
-        yaw_4 = rotations.IMU4.alignment(3);
+        roll_4 = rotations.IMU4.alignment(1)*(pi/180);
+        pitch_4 = rotations.IMU4.alignment(2)*(pi/180);
+        yaw_4 = rotations.IMU4.alignment(3)*(pi/180);
 
         try
-            roll_5 = rotations.IMU5.alignment(1);
-            pitch_5 = rotations.IMU5.alignment(2);
-            yaw_5 = rotations.IMU5.alignment(3);
+            roll_5 = rotations.IMU5.alignment(1)*(pi/180);
+            pitch_5 = rotations.IMU5.alignment(2)*(pi/180);
+            yaw_5 = rotations.IMU5.alignment(3)*(pi/180);
         catch
             fprintf('IMU5 data not found')
         end
@@ -154,29 +154,6 @@ if estimate == 1
     
     end
 
-    if missionselect == 5
-
-    roll_1 = 0.5*pi/180;
-    pitch_1 = 180.5*pi/180;
-    yaw_1 = 106*pi/180;
-
-    roll_2 = -3*pi/180;
-    pitch_2 = 180*pi/180;
-    yaw_2 = 90*pi/180;
-
-    roll_3 = 179.5*pi/180;
-    pitch_3 = 316.5*pi/180;
-    yaw_3 = 270*pi/180;
-
-    roll_4 = 182*pi/180;
-    pitch_4 = 315*pi/180;
-    yaw_4 = 90*pi/180;
-
-    roll_5 = 0*pi/180;
-    pitch_5 = 0*pi/180;
-    yaw_5 = 0*pi/180;
-    
-    end
 
 % end
 
@@ -296,7 +273,6 @@ if removebias == 1
         rot_5_data(2,:) = detrend(rot_5_data(2,:));
         rot_5_data(3,:) = detrend(rot_5_data(3,:));
     end
-end
 
 if filterreq == 1
 % Apply a filter
@@ -327,14 +303,15 @@ if filterreq == 1
     rot_4_data(3,:) = maia_allfilter(rot_4_data(3,:)',frequency,df);
  
     if (exist('acc_5_data','var'))
-        acc_5_data(1,:) = detrend(maia_allfilter(acc_5_data(1,:)',frequency,df));
-        acc_5_data(2,:) = detrend(maia_allfilter(acc_5_data(2,:)',frequency,df));
-        acc_5_data(3,:) = detrend(maia_allfilter(acc_5_data(3,:)',frequency,df));
+        acc_5_data(1,:) = maia_allfilter(acc_5_data(1,:)',frequency,df);
+        acc_5_data(2,:) = maia_allfilter(acc_5_data(2,:)',frequency,df);
+        acc_5_data(3,:) = maia_allfilter(acc_5_data(3,:)',frequency,df);
            
-        rot_5_data(1,:) = detrend(maia_allfilter(rot_5_data(1,:)',frequency,df));
-        rot_5_data(2,:) = detrend(maia_allfilter(rot_5_data(2,:)',frequency,df));
-        rot_5_data(3,:) = detrend(maia_allfilter(rot_5_data(3,:)',frequency,df));
+        rot_5_data(1,:) = maia_allfilter(rot_5_data(1,:)',frequency,df);
+        rot_5_data(2,:) = maia_allfilter(rot_5_data(2,:)',frequency,df);
+        rot_5_data(3,:) = maia_allfilter(rot_5_data(3,:)',frequency,df);
     end
+end
 end
 
 if convert == 1
@@ -429,11 +406,21 @@ imu_data_aligned = struct_adddata(imu_data_aligned,acc_4_data,rot_4_data,matdate
 imu_data_aligned.IMU4.R = R_4;
 imu_data_aligned.IMU4.alignment = alignment_4;
 
+if (exist('acc_5_data','var'))
+    imu_data_aligned = struct_adddata(imu_data_aligned,acc_5_data,rot_5_data,matdatenum,5);
+    imu_data_aligned.IMU5.R = R_5;
+    imu_data_aligned.IMU5.alignment = alignment_5;
+end
+
 if estimate == 1
         rotations.IMU1.alignment = [roll_1 pitch_1 yaw_1];
         rotations.IMU2.alignment = [roll_2 pitch_2 yaw_2];
         rotations.IMU3.alignment = [roll_3 pitch_3 yaw_3];
         rotations.IMU4.alignment = [roll_4 pitch_4 yaw_4];
+        if (exist('acc_5_data','var'))
+            rotations.IMU5.alignment = [roll_5 pitch_5 yaw_5];
+        end
+        
         try
             [path_output,file_output] = uiputfile(pwd,'Select where to save rotation angle file...');
             save(fullfile(file_output,path_output),'rotations');  
@@ -447,10 +434,10 @@ if filterreq == 1
 end
 
 fprintf('Cleaning up \n')
-clear acc_1_data acc_2_data acc_3_data acc_4_data rot_1_data rot_2_data rot_3_data rot_4_data
-clear matdatenum roll_1 roll_2 roll_3 roll_4 pitch_1 pitch_2 pitch_3 pitch_4 yaw_1 yaw_2 yaw_3 yaw_4
-clear sp_rp res R_1 R_2 R_3 R_4 alignment_1 alignment_2 alignment_3 alignment_4 i rotations path_output file_output
-clear buttonc buttond frequency df
+clear acc_1_data acc_2_data acc_3_data acc_4_data acc_5_data rot_1_data rot_2_data rot_3_data rot_4_data rot_5_data
+clear matdatenum roll_1 roll_2 roll_3 roll_4 roll_5 pitch_1 pitch_2 pitch_3 pitch_4 pitch_5 yaw_1 yaw_2 yaw_3 yaw_4 yaw_5
+clear sp_rp res R_1 R_2 R_3 R_4 R_5 alignment_1 alignment_2 alignment_3 alignment_4 alignment_5 i rotations path_output file_output
+clear buttonc buttond frequency df filterreq estimate convert buttonb buttona removebias
 
 %%
 %close all;
