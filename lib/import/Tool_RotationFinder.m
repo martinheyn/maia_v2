@@ -316,41 +316,41 @@ end
 
 if convert == 1
 % Convert to SI units
-    acc_1_data(1,:) = acc_1_data(1,:)*0.001;
-    acc_1_data(2,:) = acc_1_data(2,:)*0.001;
-    acc_1_data(3,:) = acc_1_data(3,:)*0.001;
-    acc_2_data(1,:) = acc_2_data(1,:)*0.001;
-    acc_2_data(2,:) = acc_2_data(2,:)*0.001;
-    acc_2_data(3,:) = acc_2_data(3,:)*0.001;
-    acc_3_data(1,:) = acc_3_data(1,:)*0.001;
-    acc_3_data(2,:) = acc_3_data(2,:)*0.001;
-    acc_3_data(3,:) = acc_3_data(3,:)*0.001;
-    acc_4_data(1,:) = acc_4_data(1,:)*0.001;
-    acc_4_data(2,:) = acc_4_data(2,:)*0.001;
-    acc_4_data(3,:) = acc_4_data(3,:)*0.001;
+    acc_1_data(1,:) = acc_1_data(1,:)*0.001*9.81;
+    acc_1_data(2,:) = acc_1_data(2,:)*0.001*9.81;
+    acc_1_data(3,:) = acc_1_data(3,:)*0.001*9.81;
+    acc_2_data(1,:) = acc_2_data(1,:)*0.001*9.81;
+    acc_2_data(2,:) = acc_2_data(2,:)*0.001*9.81;
+    acc_2_data(3,:) = acc_2_data(3,:)*0.001*9.81;
+    acc_3_data(1,:) = acc_3_data(1,:)*0.001*9.81;
+    acc_3_data(2,:) = acc_3_data(2,:)*0.001*9.81;
+    acc_3_data(3,:) = acc_3_data(3,:)*0.001*9.81;
+    acc_4_data(1,:) = acc_4_data(1,:)*0.001*9.81;
+    acc_4_data(2,:) = acc_4_data(2,:)*0.001*9.81;
+    acc_4_data(3,:) = acc_4_data(3,:)*0.001*9.81;
 
     if (exist('acc_5_data','var'))
-        acc_5_data(1,:) = acc_5_data(1,:)*0.001;
-        acc_5_data(2,:) = acc_5_data(2,:)*0.001;
-        acc_5_data(3,:) = acc_5_data(3,:)*0.001;
+        acc_5_data(1,:) = acc_5_data(1,:)*0.001*9.81;
+        acc_5_data(2,:) = acc_5_data(2,:)*0.001*9.81;
+        acc_5_data(3,:) = acc_5_data(3,:)*0.001*9.81;
     end
     if removebias == 1
-        acc_1_data(3,:) = acc_1_data(3,:) + 9.81;
-        acc_2_data(3,:) = acc_2_data(3,:) + 9.81;
-        acc_3_data(3,:) = acc_3_data(3,:) + 9.81;
-        acc_4_data(3,:) = acc_4_data(3,:) + 9.81;
+        acc_1_data(3,:) = acc_1_data(3,:) - 9.81;
+        acc_2_data(3,:) = acc_2_data(3,:) - 9.81;
+        acc_3_data(3,:) = acc_3_data(3,:) - 9.81;
+        acc_4_data(3,:) = acc_4_data(3,:) - 9.81;
         if (exist('acc_5_data','var'))
-            acc_5_data(3,:) = acc_5_data(3,:) + 9.81;
+            acc_5_data(3,:) = acc_5_data(3,:) - 9.81;
         end
     end
 else
     if removebias == 1
-        acc_1_data(3,:) = acc_1_data(3,:) + 1000;
-        acc_2_data(3,:) = acc_2_data(3,:) + 1000;
-        acc_3_data(3,:) = acc_3_data(3,:) + 1000;
-        acc_4_data(3,:) = acc_4_data(3,:) + 1000;
+        acc_1_data(3,:) = acc_1_data(3,:) - 1000;
+        acc_2_data(3,:) = acc_2_data(3,:) - 1000;
+        acc_3_data(3,:) = acc_3_data(3,:) - 1000;
+        acc_4_data(3,:) = acc_4_data(3,:) - 1000;
         if (exist('acc_5_data','var'))
-            acc_5_data(3,:) = acc_5_data(3,:) + 1000;
+            acc_5_data(3,:) = acc_5_data(3,:) - 1000;
         end
     end
 end
