@@ -47,29 +47,30 @@ fprintf('o-------------------------------------------o\n\n');
 if exist('imu_5_data','var')
     data_lengths = [length(imu_1_data) length(imu_2_data) length(imu_3_data) length(imu_4_data) length(imu_5_data)];
     [~,inx] = min(data_lengths);
-end
 
-if exist('imu_1_data','var') && exist('imu_2_data','var')
-    data_lengths = [length(imu_1_data) length(imu_2_data) length(imu_3_data) length(imu_4_data)];
-    [~,inx] = min(data_lengths);
-end
+else
+    
+    if exist('imu_1_data','var') && exist('imu_2_data','var')
+        data_lengths = [length(imu_1_data) length(imu_2_data) length(imu_3_data) length(imu_4_data)];
+        [~,inx] = min(data_lengths);
+    end
 
-% find the shortest dataset
-if ~exist('imu_1_data','var') && exist('imu_2_data','var')
-    data_lengths = [99999999 length(imu_2_data) length(imu_3_data) length(imu_4_data)];
-    [~,inx] = min(data_lengths);
-end
+    % find the shortest dataset
+    if ~exist('imu_1_data','var') && exist('imu_2_data','var')
+        data_lengths = [99999999 length(imu_2_data) length(imu_3_data) length(imu_4_data)];
+        [~,inx] = min(data_lengths);
+    end
 
-if ~exist('imu_2_data','var') && exist('imu_1_data','var')
-    data_lengths = [length(imu_1_data) 99999999 length(imu_3_data) length(imu_4_data)];
-    [~,inx] = min(data_lengths);
-end
+    if ~exist('imu_2_data','var') && exist('imu_1_data','var')
+        data_lengths = [length(imu_1_data) 99999999 length(imu_3_data) length(imu_4_data)];
+        [~,inx] = min(data_lengths);
+    end
 
-if ~exist('imu_1_data','var') && ~exist('imu_2_data','var')
-    data_lengths = [99999999 99999999 length(imu_3_data) length(imu_4_data)];
-    [~,inx] = min(data_lengths);
+    if ~exist('imu_1_data','var') && ~exist('imu_2_data','var')
+        data_lengths = [99999999 99999999 length(imu_3_data) length(imu_4_data)];
+        [~,inx] = min(data_lengths);
+    end
 end
-
 
 %%%% FIX THAT PROBLEM HERE WHEN YOU ARE HOME: CONVERT STRING TO A VALID
 %%%% VARIABLENAME!!!!!!!

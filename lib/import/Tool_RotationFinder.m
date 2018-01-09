@@ -236,43 +236,97 @@ if (exist('acc_5_data','var'))
 end
 
 if removebias == 1
-% Remove bias from data
-    acc_1_data(1,:) = detrend(acc_1_data(1,:));
-    acc_1_data(2,:) = detrend(acc_1_data(2,:));
-    acc_1_data(3,:) = detrend(acc_1_data(3,:));
-    acc_2_data(1,:) = detrend(acc_2_data(1,:));
-    acc_2_data(2,:) = detrend(acc_2_data(2,:));
-    acc_2_data(3,:) = detrend(acc_2_data(3,:));
-    acc_3_data(1,:) = detrend(acc_3_data(1,:));
-    acc_3_data(2,:) = detrend(acc_3_data(2,:));
-    acc_3_data(3,:) = detrend(acc_3_data(3,:));
-    acc_4_data(1,:) = detrend(acc_4_data(1,:));
-    acc_4_data(2,:) = detrend(acc_4_data(2,:));
-    acc_4_data(3,:) = detrend(acc_4_data(3,:));
+    if ~exist('bias','var')
+        %Remove bias from data
+            acc_1_data(1,:) = detrend(acc_1_data(1,:));
+            acc_1_data(2,:) = detrend(acc_1_data(2,:));
+            acc_1_data(3,:) = detrend(acc_1_data(3,:));
+            acc_2_data(1,:) = detrend(acc_2_data(1,:));
+            acc_2_data(2,:) = detrend(acc_2_data(2,:));
+            acc_2_data(3,:) = detrend(acc_2_data(3,:));
+            acc_3_data(1,:) = detrend(acc_3_data(1,:));
+            acc_3_data(2,:) = detrend(acc_3_data(2,:));
+            acc_3_data(3,:) = detrend(acc_3_data(3,:));
+            acc_4_data(1,:) = detrend(acc_4_data(1,:));
+            acc_4_data(2,:) = detrend(acc_4_data(2,:));
+            acc_4_data(3,:) = detrend(acc_4_data(3,:));
 
-    rot_1_data(1,:) = detrend(rot_1_data(1,:));
-    rot_1_data(2,:) = detrend(rot_1_data(2,:));
-    rot_1_data(3,:) = detrend(rot_1_data(3,:));
-    rot_2_data(1,:) = detrend(rot_2_data(1,:));
-    rot_2_data(2,:) = detrend(rot_2_data(2,:));
-    rot_2_data(3,:) = detrend(rot_2_data(3,:));
-    rot_3_data(1,:) = detrend(rot_3_data(1,:));
-    rot_3_data(2,:) = detrend(rot_3_data(2,:));
-    rot_3_data(3,:) = detrend(rot_3_data(3,:));
-    rot_4_data(1,:) = detrend(rot_4_data(1,:));
-    rot_4_data(2,:) = detrend(rot_4_data(2,:));
-    rot_4_data(3,:) = detrend(rot_4_data(3,:));
+            rot_1_data(1,:) = detrend(rot_1_data(1,:));
+            rot_1_data(2,:) = detrend(rot_1_data(2,:));
+            rot_1_data(3,:) = detrend(rot_1_data(3,:));
+            rot_2_data(1,:) = detrend(rot_2_data(1,:));
+            rot_2_data(2,:) = detrend(rot_2_data(2,:));
+            rot_2_data(3,:) = detrend(rot_2_data(3,:));
+            rot_3_data(1,:) = detrend(rot_3_data(1,:));
+            rot_3_data(2,:) = detrend(rot_3_data(2,:));
+            rot_3_data(3,:) = detrend(rot_3_data(3,:));
+            rot_4_data(1,:) = detrend(rot_4_data(1,:));
+            rot_4_data(2,:) = detrend(rot_4_data(2,:));
+            rot_4_data(3,:) = detrend(rot_4_data(3,:));
 
 
-    if (exist('acc_5_data','var'))
-        acc_5_data(1,:) = detrend(acc_5_data(1,:));
-        acc_5_data(2,:) = detrend(acc_5_data(2,:));
-        acc_5_data(3,:) = detrend(acc_5_data(3,:));    
+            if (exist('acc_5_data','var'))
+                acc_5_data(1,:) = detrend(acc_5_data(1,:));
+                acc_5_data(2,:) = detrend(acc_5_data(2,:));
+                acc_5_data(3,:) = detrend(acc_5_data(3,:));    
 
-        rot_5_data(1,:) = detrend(rot_5_data(1,:));
-        rot_5_data(2,:) = detrend(rot_5_data(2,:));
-        rot_5_data(3,:) = detrend(rot_5_data(3,:));
+                rot_5_data(1,:) = detrend(rot_5_data(1,:));
+                rot_5_data(2,:) = detrend(rot_5_data(2,:));
+                rot_5_data(3,:) = detrend(rot_5_data(3,:));
+            end
+    else
+            acc_1_data(1,:) = acc_1_data(1,:)-bias.IMU1.acc(1);
+            acc_1_data(2,:) = acc_1_data(2,:)-bias.IMU1.acc(2);
+            acc_1_data(3,:) = acc_1_data(3,:)-bias.IMU1.acc(3);
+            acc_2_data(1,:) = acc_2_data(1,:)-bias.IMU2.acc(1);
+            acc_2_data(2,:) = acc_2_data(2,:)-bias.IMU2.acc(2);
+            acc_2_data(3,:) = acc_2_data(3,:)-bias.IMU2.acc(3);
+            acc_3_data(1,:) = acc_3_data(1,:)-bias.IMU3.acc(1);
+            acc_3_data(2,:) = acc_3_data(2,:)-bias.IMU3.acc(2);
+            acc_3_data(3,:) = acc_3_data(3,:)-bias.IMU3.acc(3);
+            acc_4_data(1,:) = acc_4_data(1,:)-bias.IMU4.acc(1);
+            acc_4_data(2,:) = acc_4_data(2,:)-bias.IMU4.acc(2);
+            acc_4_data(3,:) = acc_4_data(3,:)-bias.IMU4.acc(3);
+
+%             rot_1_data(1,:) = rot_1_data(1,:)-bias.IMU1.rot(1);
+%             rot_1_data(2,:) = rot_1_data(2,:)-bias.IMU1.rot(2);
+%             rot_1_data(3,:) = rot_1_data(3,:)-bias.IMU1.rot(3);
+%             rot_2_data(1,:) = rot_2_data(1,:)-bias.IMU2.rot(1);
+%             rot_2_data(2,:) = rot_2_data(2,:)-bias.IMU2.rot(2);
+%             rot_2_data(3,:) = rot_2_data(3,:)-bias.IMU2.rot(3);
+%             rot_3_data(1,:) = rot_3_data(1,:)-bias.IMU3.rot(1);
+%             rot_3_data(2,:) = rot_3_data(2,:)-bias.IMU3.rot(2);
+%             rot_3_data(3,:) = rot_3_data(3,:)-bias.IMU3.rot(3);
+%             rot_4_data(1,:) = rot_4_data(1,:)-bias.IMU4.rot(1);
+%             rot_4_data(2,:) = rot_4_data(2,:)-bias.IMU4.rot(2);
+%             rot_4_data(3,:) = rot_4_data(3,:)-bias.IMU4.rot(3);
+            rot_1_data(1,:) = detrend(rot_1_data(1,:));
+            rot_1_data(2,:) = detrend(rot_1_data(2,:));
+            rot_1_data(3,:) = detrend(rot_1_data(3,:));
+            rot_2_data(1,:) = detrend(rot_2_data(1,:));
+            rot_2_data(2,:) = detrend(rot_2_data(2,:));
+            rot_2_data(3,:) = detrend(rot_2_data(3,:));
+            rot_3_data(1,:) = detrend(rot_3_data(1,:));
+            rot_3_data(2,:) = detrend(rot_3_data(2,:));
+            rot_3_data(3,:) = detrend(rot_3_data(3,:));
+            rot_4_data(1,:) = detrend(rot_4_data(1,:));
+            rot_4_data(2,:) = detrend(rot_4_data(2,:));
+            rot_4_data(3,:) = detrend(rot_4_data(3,:));
+
+            if (exist('acc_5_data','var'))
+                 acc_5_data(1,:) = acc_5_data(1,:)-bias.IMU5.acc(1);
+                 acc_5_data(2,:) = acc_5_data(2,:)-bias.IMU5.acc(2);
+                 acc_5_data(3,:) = acc_5_data(3,:)-bias.IMU5.acc(3);
+%                 
+%                 rot_5_data(1,:) = rot_5_data(1,:)-bias.IMU5.rot(1);
+%                 rot_5_data(2,:) = rot_5_data(2,:)-bias.IMU5.rot(2);
+%                 rot_5_data(3,:) = rot_5_data(3,:)-bias.IMU5.rot(3);
+                rot_5_data(1,:) = detrend(rot_5_data(1,:));
+                rot_5_data(2,:) = detrend(rot_5_data(2,:));
+                rot_5_data(3,:) = detrend(rot_5_data(3,:));
+            end
     end
+end
 
 if filterreq == 1
 % Apply a filter
@@ -312,7 +366,6 @@ if filterreq == 1
         rot_5_data(3,:) = maia_allfilter(rot_5_data(3,:)',frequency,df);
     end
 end
-end
 
 if convert == 1
 % Convert to SI units
@@ -334,7 +387,7 @@ if convert == 1
         acc_5_data(2,:) = acc_5_data(2,:)*0.001*9.81;
         acc_5_data(3,:) = acc_5_data(3,:)*0.001*9.81;
     end
-    if removebias == 1
+    if removebias == 1 && ~exist('bias','var')
         acc_1_data(3,:) = acc_1_data(3,:) - 9.81;
         acc_2_data(3,:) = acc_2_data(3,:) - 9.81;
         acc_3_data(3,:) = acc_3_data(3,:) - 9.81;
@@ -344,7 +397,7 @@ if convert == 1
         end
     end
 else
-    if removebias == 1
+    if removebias == 1 && ~exist('bias','var')
         acc_1_data(3,:) = acc_1_data(3,:) - 1000;
         acc_2_data(3,:) = acc_2_data(3,:) - 1000;
         acc_3_data(3,:) = acc_3_data(3,:) - 1000;
@@ -387,8 +440,10 @@ imu_data_aligned = struct;
 imu_data_aligned = struct_adddata(imu_data_aligned,acc_1_data,rot_1_data,matdatenum,1);
 imu_data_aligned.IMU1.R = R_1;
 imu_data_aligned.IMU1.alignment = alignment_1;
+%imu_data_aligned.IMU1.bias = bias.IMU1;
 imu_data_aligned.accunits = 'mg';
 imu_data_aligned.rotunits = 'deg/s';
+imu_data_aligned.frame = 'FossenBODY';
 if convert == 1
     imu_data_aligned.accunits = 'ms^-2';
 end
@@ -397,19 +452,23 @@ imu_data_aligned.frequency = imu_data.frequency;
 imu_data_aligned = struct_adddata(imu_data_aligned,acc_2_data,rot_2_data,matdatenum,2);
 imu_data_aligned.IMU2.R = R_2;
 imu_data_aligned.IMU2.alignment = alignment_2;
+%imu_data_aligned.IMU1.bias = bias.IMU2;
 
 imu_data_aligned = struct_adddata(imu_data_aligned,acc_3_data,rot_3_data,matdatenum,3);
 imu_data_aligned.IMU3.R = R_3;
 imu_data_aligned.IMU3.alignment = alignment_3;
+%imu_data_aligned.IMU1.bias = bias.IMU3;
 
 imu_data_aligned = struct_adddata(imu_data_aligned,acc_4_data,rot_4_data,matdatenum,4);
 imu_data_aligned.IMU4.R = R_4;
 imu_data_aligned.IMU4.alignment = alignment_4;
+%imu_data_aligned.IMU1.bias = bias.IMU4;
 
 if (exist('acc_5_data','var'))
     imu_data_aligned = struct_adddata(imu_data_aligned,acc_5_data,rot_5_data,matdatenum,5);
     imu_data_aligned.IMU5.R = R_5;
     imu_data_aligned.IMU5.alignment = alignment_5;
+    %imu_data_aligned.IMU1.bias = bias.IMU5;
 end
 
 if estimate == 1
