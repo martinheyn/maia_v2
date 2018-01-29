@@ -10,13 +10,22 @@ function [H,h] = maia_tentropy(S,nu)
         temp(:,:) = S(k,:,:);
         H(k) = 0.5*log(det(temp)) + log(2*pi) + (1+(2/nu(k)));
     
-        if H(k) >= -5.5 % very close ice
+%         if H(k) >= -5.5 % very close ice
+%             h(k) = 4;
+%         elseif H(k) >= -7.35 % close ice
+%             h(k) = 3;            
+%         elseif  H(k) >= -9.25 % open ice
+%             h(k) = 2;
+%         elseif H(k) < -9.25 % open water
+%             h(k) = 1;
+%         end
+        if H(k) >= -1.8 % very close ice
             h(k) = 4;
-        elseif H(k) >= -7.35 % close ice
+        elseif H(k) >= -3.2 % close ice
             h(k) = 3;            
-        elseif  H(k) >= -9.25 % open ice
+        elseif  H(k) >= -5.0 % open ice
             h(k) = 2;
-        elseif H(k) < -9.25 % open water
+        elseif H(k) < -5.0 % open water
             h(k) = 1;
         end
             

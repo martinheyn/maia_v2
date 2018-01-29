@@ -30,7 +30,7 @@ hold on
 %plot3(E1(1,:), E1(2,:), 1e-3+zeros(1,size(E1,2)),'Color','g','LineWidth',2);
 h = plot(E3(1,:), E3(2,:),'Color','g','LineWidth',2);
 dim = [.2 .5 .3 .3];
-axis([-0.05 0.05 -0.05 0.05])
+axis([-0.5 0.5 -0.5 0.5])
 hold off
 %plot3(E3(1,:), E3(2,:), 1e-3+zeros(1,size(E3,2)),'Color','g','LineWidth',2);
  
