@@ -23,7 +23,7 @@ pd_t = zeros(length(data),4);
         
         % Parameter estimation univariate t-distribution
         [pd_t_temp(1),pd_t_temp(2),pd_t_temp(3)] = fitt(sample);
-        pd_t_temp(2) = sqrt(pd_t_temp(2));
+        %pd_t_temp(2) = sqrt(pd_t_temp(2));
         
         % Estimate testing t distribution
         test_cdf = makedist('tlocationscale','mu',pd_t_temp(1),'sigma',pd_t_temp(2),'nu',pd_t_temp(3));

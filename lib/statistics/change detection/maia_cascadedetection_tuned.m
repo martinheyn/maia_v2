@@ -5,8 +5,8 @@ function[g_Snu,h] = maia_cascadedetection_tuned(data,S_vec,nu_vec,windowsize)
     
     % Settings
 %     S_0 = [2e-4,1e-8;1e-8,6e-4];
-    S_0 = [1e-4,1e-8;1e-8,3e-4];
-    nu_0 = 15; 
+    S_0 = [1.6e-4,1e-8;1e-8,2.8e-4];
+    nu_0 = 20; 
     h_0 = 120;
 %    S_1 = [2e-3,6.4e-5;6.4e-5,2e-3];
     S_1 = [2e-3,6.4e-5;6.4e-5,3e-3];
@@ -16,7 +16,7 @@ function[g_Snu,h] = maia_cascadedetection_tuned(data,S_vec,nu_vec,windowsize)
     nu_2 = 8; 
     h_2 = 90;
     S_3 = [1.5e-2,2e-3;2e-3,3e-2];
-    nu_3 = 4;
+    nu_3 = 3;
     h_3 = 90;
 %     S_0 = [0.8e-4,0;0,0.8e-4];
 %     nu_0 = 20; 
