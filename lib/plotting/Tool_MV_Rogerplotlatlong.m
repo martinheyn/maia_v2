@@ -1,3 +1,5 @@
+figure
+
 spheroid = referenceEllipsoid('wgs84');
 rEarth = 6378137.0; 
 g0     = 9.80665;
@@ -6,7 +8,7 @@ wie_e  = [0 0 we]';
 Sie_e  = Smtrx(wie_e);
 
 
-startinx = 1201;
+startinx = 1;
 endinx = length(Timest);
 
 lat_in = Lat_position_Deg(startinx:endinx);
@@ -19,7 +21,7 @@ lat0 = lat_in(1);
 lon0 = long_in(1);
 h0   = 0; %rEarth;
 
-C = linspecer(2);
+C = linspecer(3);
 
 h = h0;
 [xNED,yNED,zNED]    = geodetic2ned(lat_in,long_in,h,lat0,lon0,h0,spheroid);
@@ -35,11 +37,11 @@ xUTM = North_position_UTM_M(startinx:endinx)-North_position_UTM_M(startinx);
 yUTM = East_position_UTM_M(startinx:endinx)-East_position_UTM_M(startinx);
 
 figure(1); subplot(3,1,[1,2]);
-%plot(yNED,xNED,'b');
-%hold
+plot(yNED,xNED,'Color',C(3,:)');
+hold
 plot(yUTM,xUTM,'Color',C(1,:)');
 grid on
-%hold
+hold
 
 subplot(3,1,3);
 plot(Nav_t,Head,'Color',C(2,:)');
