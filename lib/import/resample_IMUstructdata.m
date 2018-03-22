@@ -60,19 +60,24 @@ function [imu_data_resampled] = resample_IMUstructdata(imu_data,freq_d)
 			end
 		
 			if proceed == 1
-				[imu_data_resampled.(selectedIMU).signal_surge] = decimate(imu_data.(selectedIMU).signal_surge,freq_frac);
 				
-				[imu_data_resampled.(selectedIMU).signal_sway] = decimate(imu_data.(selectedIMU).signal_sway,freq_frac);
+                temp = mean(imu_data.(selectedIMU).signal_surge);
+                [imu_data_resampled.(selectedIMU).signal_surge] = decimate(detrend(imu_data.(selectedIMU).signal_surge),freq_frac) + temp;
 				
-				[imu_data_resampled.(selectedIMU).signal_heave_ug] = decimate((imu_data.(selectedIMU).signal_heave- 9.81),freq_frac);
+                temp = mean(imu_data.(selectedIMU).signal_sway);
+				[imu_data_resampled.(selectedIMU).signal_sway] = decimate(detrend(imu_data.(selectedIMU).signal_sway),freq_frac) + temp;
 				
-                [imu_data_resampled.(selectedIMU).signal_heave] = imu_data_resampled.(selectedIMU).signal_heave_ug + 9.81;
+                temp = mean(imu_data.(selectedIMU).signal_heave);
+				[imu_data_resampled.(selectedIMU).signal_heave] = decimate(detrend(imu_data.(selectedIMU).signal_heave),freq_frac) + temp;
                 
-				[imu_data_resampled.(selectedIMU).signal_roll] = decimate(imu_data.(selectedIMU).signal_roll,freq_frac);
+                temp = mean(imu_data.(selectedIMU).signal_roll);
+				[imu_data_resampled.(selectedIMU).signal_roll] = decimate(detrend(imu_data.(selectedIMU).signal_roll),freq_frac) + temp;
 				
-				[imu_data_resampled.(selectedIMU).signal_pitch] = decimate(imu_data.(selectedIMU).signal_pitch,freq_frac);
+                temp = mean(imu_data.(selectedIMU).signal_pitch);
+				[imu_data_resampled.(selectedIMU).signal_pitch] = decimate(detrend(imu_data.(selectedIMU).signal_pitch),freq_frac) + temp;
 				
-				[imu_data_resampled.(selectedIMU).signal_yaw] = decimate(imu_data.(selectedIMU).signal_yaw,freq_frac);
+                temp = mean(imu_data.(selectedIMU).signal_yaw);
+				[imu_data_resampled.(selectedIMU).signal_yaw] = decimate(detrend(imu_data.(selectedIMU).signal_yaw),freq_frac) + temp;
 				
 				%imu_data_resampled.(selectedIMU).R = imu_data.(selectedIMU).R;
 				

@@ -204,6 +204,9 @@ while usermainrequest == 1
             if isfield(eva,'IMU4')
                 inputOptions(end+1) = {'4'};
             end
+            if isfield(eva,'IMU5')
+                inputOptions(end+1) = {'5'};
+            end
                 inputOptions(end+1) = {'Done'};
 
             defSelection = inputOptions{end};

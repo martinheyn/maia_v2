@@ -80,7 +80,7 @@ inputOptions = {'Just filter','Filter and resample','Back :)'};
             end
                 
             if button2 ~= 4
-                for u = 1:1:4
+                for u = 1:1:5
                     if u == 1
                         selectedIMU = 'IMU1';
                     elseif u == 2
@@ -89,6 +89,8 @@ inputOptions = {'Just filter','Filter and resample','Back :)'};
                         selectedIMU = 'IMU3';
                     elseif u == 4
                         selectedIMU = 'IMU4';
+                    elseif u == 5
+                        selectedIMU = 'IMU5';
                     end
 
                     if isfield(imu_data_aligned_prefiltered,(selectedIMU))
