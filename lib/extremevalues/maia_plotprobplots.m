@@ -27,14 +27,16 @@ end
 % Find the data in the eva-struct (ExtremeValueAnalysis)
 data = evaIMUstruct.(selectedIMU).blockmax(:,DOF);
 freq = evaIMUstruct.frequency;
+zeit = evaIMUstruct.matdatenum;
 
 % Plot the raw data
 g = figure;
 grid on
 
 h = subplot(2,2,1)
-h = plot(data)
+h = plot(zeit,data)
 grid on
+datetick
 title('Raw data plot')
 xlabel(strcat('Block size of -> ',num2str(evaIMUstruct.(selectedIMU).blocksize),' <- samples'))
 ylabel('x')

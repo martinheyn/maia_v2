@@ -66,7 +66,19 @@ while userrequest == 1
 
 
             %h = subplot(3,2,1)
-
+    
+            zeit = zeros(floor(length(imu_data.IMU1.matdatenum)/blocksize),1);
+            p = 1;
+            
+            for k=blocksize:blocksize:length(imu_data.IMU1.matdatenum)
+                zeit(p) = imu_data.IMU1.matdatenum(k);
+                p = p+1;
+            end
+            
+            eva.matdatenum = zeit;
+            clear p k zeit
+            
+            
             data = eval(strcat('imu_data.IMU',num2str(button),'.signal_surge'));
             datastring = 'a_x [m \cdot s^{-2}]';
 
