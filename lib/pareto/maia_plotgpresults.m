@@ -23,7 +23,7 @@ xlim([gp_port.matdatenum(1) gp_port.matdatenum(end)])
 grid on
 
 figure
-subplot 121
+subplot 211
 plot(gp_port.matdatenum,gp_port.exceedlevel1000,'Color',C(1,:)')
 hold
 plot(gp_sb.matdatenum,gp_sb.exceedlevel1000,'Color',C(2,:)')
@@ -34,7 +34,7 @@ legend('Port','Starboard')
 xlim([gp_port.matdatenum(1) gp_port.matdatenum(end)])
 grid on
 
-subplot 122
+subplot 212
 plot(timevect,data_port,'Color',C(1,:)')
 hold
 plot(timevect,data_sb,'Color',C(2,:)')
