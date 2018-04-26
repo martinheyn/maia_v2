@@ -29,7 +29,7 @@ hold
 plot(gp_sb.matdatenum,gp_sb.exceedlevel1000,'Color',C(2,:)')
 datetick
 xlabel('Time (HH:mm)')
-ylabel('Average exceed level x_m within 10 seconds')
+ylabel('Average exceed level (m\cdots^{-2})')
 legend('Port','Starboard')
 xlim([gp_port.matdatenum(1) gp_port.matdatenum(end)])
 grid on

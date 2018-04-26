@@ -1,14 +1,21 @@
-data_port = sqrt(imu_data_aligned.IMU5.signal_surge.^2 + imu_data_aligned.IMU5.signal_sway.^2).*1.33;
-data_sb = sqrt(imu_data_aligned.IMU4.signal_surge.^2 + imu_data_aligned.IMU4.signal_sway.^2);
+data_port = sqrt(detrend(imu_data_aligned.IMU5.signal_surge).^2 + detrend(imu_data_aligned.IMU5.signal_sway).^2).*1.33;
+data_sb = sqrt(detrend(imu_data_aligned.IMU4.signal_surge).^2 + detrend(imu_data_aligned.IMU4.signal_sway).^2);
 
 timevect = imu_data_aligned.IMU5.matdatenum;
 
-windowlength = 3000;
-frequency = 100;
-threshold = 0.10;
+% windowlength = 3000;
+% frequency = 100;
+
+windowlength = 200;
+frequency = 20;
+threshold = 0.02;
+%threshold = 0.10;
 
 [gp_port] = maia_recursivegp(data_port,timevect,windowlength,threshold,frequency);
 [gp_sb] = maia_recursivegp(data_sb,timevect,windowlength,threshold,frequency);
+
+[gp_sb.exceedtime,gp_sb.exceedlevel1000] = maia_findavexceedlevel(gp_sb,1000);
+[gp_port.exceedtime,gp_port.exceedlevel1000] = maia_findavexceedlevel(gp_port,1000);
 
 function [gp] = maia_recursivegp(data,timevect,windowlength,threshold,frequency)
 

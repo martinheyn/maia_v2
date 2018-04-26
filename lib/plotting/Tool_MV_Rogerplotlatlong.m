@@ -8,8 +8,9 @@ wie_e  = [0 0 we]';
 Sie_e  = Smtrx(wie_e);
 
 
-startinx = 1;
-endinx = length(Timest);
+startinx = 421;
+%endinx = length(Timest);
+endinx = 721;
 
 lat_in = Lat_position_Deg(startinx:endinx);
 long_in = Lon_position_Deg(startinx:endinx);
@@ -40,7 +41,7 @@ figure
 subplot(3,1,[1,2]);
 plot(yNED,xNED,'Color',C(3,:)');
 hold
-plot(yNED(startinx),xNED(startinx),'o');
+plot(yNED(1),xNED(1),'o');
 plot(yUTM,xUTM,'Color',C(1,:)');
 grid on
 hold
@@ -54,7 +55,7 @@ figure
 subplot(3,1,[1,2]);
 plot(long_in,lat_in,'Color',C(4,:)');
 hold
-plot(long_in(startinx),lat_in(startinx),'o');
+plot(long_in(1),lat_in(1),'o');
 grid on
 hold
 
@@ -67,23 +68,25 @@ figure
 plot(yNED,xNED,'Color',C(3,:)');
 xx=[yNED';yNED'];
 yy=[xNED';xNED'];
-cc=[Fx_Anchor_N';Fx_Anchor_N'];
+cc=[Fx_Anchor_N(startinx:endinx)';Fx_Anchor_N(startinx:endinx)'];
 zz=zeros(size(xx));
 surf(xx,yy,zz,cc,'EdgeColor','interp','LineWidth',2)
 colormap('jet')
+%colorbar('southoutside')
 view(2)
 hold
 grid on
-dec = 300;
-L = 200;
-am = 0.015;
-arle = 0.05;
+dec = 150;
+st = 0.7;
+L = 1*200;
+am = st*0.015;
+arle = 0.1;
 
 xlabel('East position (m)')
 ylabel('North position (m)')
 %colorbar('southoutside')
 
-Fx_Anchor_N_max = max(Fx_Anchor_N);
+Fx_Anchor_N_max = max(Fx_Anchor_N(startinx:endinx));
 
 for now=1:dec:length(xNED)
         %MS Fartoystyring
@@ -92,31 +95,31 @@ for now=1:dec:length(xNED)
               am*0 am*10 am*20 am*20 am*-20 am*-20 am*-10 am*0];
     
     if now == 1
-        plot(yNED(now)+boat(2,:),xNED(now)+boat(1,:),'k');
-        %patch(yNED(now)+boat(2,:),xNED(now)+boat(1,:),'k');
+        plot(yNED(now)+boat(2,:),xNED(now)+boat(1,:),'r');
+        patch(yNED(now)+boat(2,:),xNED(now)+boat(1,:),'r');
     else      
         plot(yNED(now)+boat(2,:),xNED(now)+boat(1,:),'y');
         patch(yNED(now)+boat(2,:),xNED(now)+boat(1,:),'y');
     end
 end
 
-% for now=1:dec:length(xNED)
-%     if exist('Ice_Drift_Direction_DB_deg','var')
-%         pos = get(gca, 'Position');
-%         [delta_y, delta_x] = pol2cart((Ice_Drift_Direction_DB_deg(now)*(pi/180)),arle);
-%         %[delta_y, delta_x] = pol2cart((24*(pi/180)),0.05);
-%         
-%         annotation('arrow',[(yNED(now) + abs(min(xlim)))/diff(xlim) * pos(3) + pos(1),...
-%          ((yNED(now) + abs(min(xlim)))/diff(xlim) * pos(3) + pos(1))+delta_x ],... 
-%         [(xNED(now) - min(ylim))/diff(ylim) * pos(4) + pos(2),...
-%          %((xNED(now) - min(ylim))/diff(ylim) * pos(4) + pos(2))+delta_y],'String',num2str(AverageofIce_Drift_Velocity_DB_ms(now)));
-%          %((xNED(now) - min(ylim))/diff(ylim) * pos(4) + pos(2))+delta_y],'String',num2str(Ice_Drift_Direction_DB_deg(now)));
-%          ((xNED(now) - min(ylim))/diff(ylim) * pos(4) + pos(2))+delta_y]);
-%     end
-% end
+for now=1:dec:length(xNED)
+    if exist('Ice_Drift_Direction_DB_deg','var')
+        pos = get(gca, 'Position');
+        [delta_y, delta_x] = pol2cart((Ice_Drift_Direction_DB_deg(now+startinx-1)*(pi/180)),arle);
+        %[delta_y, delta_x] = pol2cart((24*(pi/180)),0.05);
+        
+        annotation('arrow',[(yNED(now) + abs(min(xlim)))/diff(xlim) * pos(3) + pos(1),...
+         ((yNED(now) + abs(min(xlim)))/diff(xlim) * pos(3) + pos(1))+delta_x ],... 
+        [(xNED(now) - min(ylim))/diff(ylim) * pos(4) + pos(2),...
+         %((xNED(now) - min(ylim))/diff(ylim) * pos(4) + pos(2))+delta_y],'String',num2str(AverageofIce_Drift_Velocity_DB_ms(now)));
+         %((xNED(now) - min(ylim))/diff(ylim) * pos(4) + pos(2))+delta_y],'String',num2str(Ice_Drift_Direction_DB_deg(now+startinx-1)));
+         ((xNED(now) - min(ylim))/diff(ylim) * pos(4) + pos(2))+delta_y]);
+    end
+end
 
 dim = [.6 .7 .2 .2];
-annotation('textbox',dim,'String',strcat('Average ice drift velocity:','{ }',num2str(mean(AverageofIce_Drift_Velocity_DB_ms)),'{ }','ms'),'FitBoxToText','on');
+annotation('textbox',dim,'String',strcat('Average ice drift velocity:','{ }',num2str(mean(AverageofIce_Drift_Velocity_DB_ms(startinx:endinx))),'{ }','ms^{-1}'),'FitBoxToText','on');
 
 hold
 
