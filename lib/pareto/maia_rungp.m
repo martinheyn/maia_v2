@@ -6,9 +6,9 @@ timevect = imu_data_aligned.IMU5.matdatenum;
 % windowlength = 3000;
 % frequency = 100;
 
-windowlength = 200;
+windowlength = 600;
 frequency = 20;
-threshold = 0.02;
+threshold = 0.015;
 %threshold = 0.10;
 
 [gp_port] = maia_recursivegp(data_port,timevect,windowlength,threshold,frequency);

@@ -4,8 +4,8 @@ xi = {};
 
 clear xi thresh paragp paragpCIup paragpCIdown
 
-data_port = sqrt(imu_data.IMU5.signal_surge.^2 + imu_data.IMU5.signal_sway.^2).*1.33;
-data_sb = sqrt(imu_data.IMU4.signal_surge.^2 + imu_data.IMU4.signal_sway.^2);
+% data_port = sqrt(imu_data.IMU5.signal_surge.^2 + imu_data.IMU5.signal_sway.^2).*1.33;
+% data_sb = sqrt(imu_data.IMU4.signal_surge.^2 + imu_data.IMU4.signal_sway.^2);
 test = data_sb;
 
 maxthres = 0.8*max(test);
