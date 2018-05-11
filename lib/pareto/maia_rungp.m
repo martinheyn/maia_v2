@@ -27,8 +27,8 @@ threshold = 0.01;
 [gp_sb.exceedtime,gp_sb.exceedlevel1000] = maia_findavexceedlevel(gp_sb,1000);
 [gp_port.exceedtime,gp_port.exceedlevel1000] = maia_findavexceedlevel(gp_port,1000);
 
-[gp_sb.exceedtime,gp_sb.returnperiod15u] = maia_findavexceedlevel(gp_sb,1.5*threshold);
-[gp_port.exceedtime,gp_port.returnperiod15u] = maia_findavexceedlevel(gp_port,1.5*threshold);
+[gp_sb.exceedtime,gp_sb.returnperiod15u] = maia_findreturnperiod(gp_sb,1.5*threshold);
+[gp_port.exceedtime,gp_port.returnperiod15u] = maia_findreturnperiod(gp_port,1.5*threshold);
 
 % [gp_MLE_sb.exceedtime,gp_MLE_sb.exceedlevel1000] = maia_findavexceedlevel(gp_MLE_sb,1000);
 % [gp_MLE_port.exceedtime,gp_MLE_port.exceedlevel1000] = maia_findavexceedlevel(gp_MLE_port,1000);

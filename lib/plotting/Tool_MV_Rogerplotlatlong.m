@@ -8,9 +8,8 @@ wie_e  = [0 0 we]';
 Sie_e  = Smtrx(wie_e);
 
 
-startinx = 421;
-%endinx = length(Timest);
-endinx = 721;
+startinx = 1;
+endinx = length(Timest);
 
 lat_in = Lat_position_Deg(startinx:endinx);
 long_in = Lon_position_Deg(startinx:endinx);
