@@ -4,14 +4,14 @@ xi = {};
 
 clear xi thresh paragp paragpCIup paragpCIdown
 
-imu_data = imu_data_aligned;
+% imu_data = imu_data_aligned;
 
-data_1 = sqrt(imu_data.IMU1.signal_surge.^2 + imu_data.IMU1.signal_sway.^2);
-data_port = sqrt(imu_data.IMU5.signal_surge.^2 + imu_data.IMU5.signal_sway.^2);
-data_sb = sqrt(imu_data.IMU4.signal_surge.^2 + imu_data.IMU4.signal_sway.^2);
-
-gam_sb = mean(data_sb)/mean(data_1);
-gam_port = mean(data_port)/mean(data_1);
+% data_1 = sqrt(imu_data.IMU1.signal_surge.^2 + imu_data.IMU1.signal_sway.^2);
+% data_port = sqrt(imu_data.IMU5.signal_surge.^2 + imu_data.IMU5.signal_sway.^2);
+% data_sb = sqrt(imu_data.IMU4.signal_surge.^2 + imu_data.IMU4.signal_sway.^2);
+% 
+% gam_sb = mean(data_sb)/mean(data_1);
+% gam_port = mean(data_port)/mean(data_1);
 
 
 
@@ -69,6 +69,7 @@ xlabel('Threshold u starboard')
 grid on
 
 k = 1;
+
 test = gam_port.*data_port;
 
 maxthres = 0.8*max(test);

@@ -3,12 +3,17 @@ imu_data = imu_data_aligned;
 data_1 = sqrt(imu_data.IMU1.signal_surge.^2 + imu_data.IMU1.signal_sway.^2);
 data_port = sqrt(imu_data.IMU5.signal_surge.^2 + imu_data.IMU5.signal_sway.^2);
 data_sb = sqrt(imu_data.IMU4.signal_surge.^2 + imu_data.IMU4.signal_sway.^2);
+% data_port2 = sqrt(imu_data.IMU3.signal_surge.^2 + imu_data.IMU3.signal_sway.^2);
+% data_sb2 = sqrt(imu_data.IMU2.signal_surge.^2 + imu_data.IMU2.signal_sway.^2);
 
-gam_sb = mean(data_sb)/mean(data_1);
-gam_port = mean(data_port)/mean(data_1);
+% gam_sb = mean(data_sb(10000:20000))/mean(data_1);
+% gam_port = mean(data_port(10000:20000))/mean(data_1);
 
-data_port = gam_port .* data_port;
-data_sb = gam_sb .* data_sb;
+gam_sb = 1.11;
+gam_port = 0.88;
+
+data_port =  data_port ./ gam_port;
+data_sb = data_sb ./ gam_sb;
 
 warning('off','all')
 timevect = imu_data_aligned.IMU5.matdatenum;
@@ -24,8 +29,8 @@ threshold = 0.01;
 [gp_port] = maia_recursivegp(data_port,timevect,windowlength,threshold,frequency);
 [gp_sb] = maia_recursivegp(data_sb,timevect,windowlength,threshold,frequency);
 
-[gp_sb.exceedtime,gp_sb.exceedlevel1000] = maia_findavexceedlevel(gp_sb,1000);
-[gp_port.exceedtime,gp_port.exceedlevel1000] = maia_findavexceedlevel(gp_port,1000);
+[gp_sb.exceedtime,gp_sb.exceedlevel50] = maia_findavexceedlevel(gp_sb,0.5);
+[gp_port.exceedtime,gp_port.exceedlevel50] = maia_findavexceedlevel(gp_port,0.5);
 
 [gp_sb.exceedtime,gp_sb.returnlevel15u] = maia_findreturnlevel(gp_sb,1.5*threshold);
 [gp_port.exceedtime,gp_port.returnlevel15u] = maia_findreturnlevel(gp_port,1.5*threshold);
