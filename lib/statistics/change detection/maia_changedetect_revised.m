@@ -1,4 +1,4 @@
-function[h,h_closest] = maia_changedetect_revised(g_Snu)
+function[g_Snu_mod,h_closest] = maia_changedetect_revised(g_Snu)
 
 % Threshold definitions
     h_0 = 120; % Open water
@@ -33,10 +33,10 @@ function[h,h_closest] = maia_changedetect_revised(g_Snu)
             h_closest(k,(2:4)) = [0 0 255];
         end
         
-        if g_Snu_mod(k,I) <= 1
-            h(k,:) = h_closest(k,:);
-        else
-            h_closest(k,1) = h_closest(k,1)-0.5;
-        end
+%         if g_Snu_mod(k,I) <= 1
+%             h(k,:) = h_closest(k,:);
+%         else
+%             h_closest(k,1) = h_closest(k,1)-0.5;
+%         end
     end
 end
