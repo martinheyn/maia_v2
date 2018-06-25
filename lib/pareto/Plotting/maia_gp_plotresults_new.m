@@ -13,7 +13,7 @@ datetick
 %ylabel('$A_{vib}^b=\sqrt{{f_{i{s_j},HP,x}^2}^2+{f_{i{s_j},HP,y}^2}$','Interpreter','latex')
 title('Vibration data')
 ylabel('$A_{vib}^b$ (m$\cdot$s$^{-2}$)','Interpreter','latex')
-legend('Port','Starboard')
+legend('Starboard','Port')
 xlim([gp_port.matdatenum(1) gp_port.matdatenum(end)])
 grid on
 set(gca,'XLim',[gp_port.matdatenum(1) gp_port.matdatenum(end)])

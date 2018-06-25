@@ -1,20 +1,20 @@
 imu_data = imu_data_aligned;
 
-data_1 = sqrt(imu_data.IMU1.signal_surge.^2 + imu_data.IMU1.signal_sway.^2);
-data_port = sqrt(imu_data.IMU5.signal_surge.^2 + imu_data.IMU5.signal_sway.^2);
-data_sb = sqrt(imu_data.IMU4.signal_surge.^2 + imu_data.IMU4.signal_sway.^2);
+data_1 = sqrt(detrend(imu_data.IMU1.signal_surge).^2 + detrend(imu_data.IMU1.signal_sway).^2 + detrend(imu_data.IMU1.signal_heave).^2);
+data_port = sqrt(detrend(imu_data.IMU5.signal_surge).^2 + detrend(imu_data.IMU5.signal_sway).^2 + detrend(imu_data.IMU5.signal_heave).^2);
+data_sb = sqrt(detrend(imu_data.IMU4.signal_surge).^2 + detrend(imu_data.IMU4.signal_sway).^2 + detrend(imu_data.IMU4.signal_heave).^2);
+
 % data_port2 = sqrt(imu_data.IMU3.signal_surge.^2 + imu_data.IMU3.signal_sway.^2);
 % data_sb2 = sqrt(imu_data.IMU2.signal_surge.^2 + imu_data.IMU2.signal_sway.^2);
 
 % gam_sb = mean(data_sb(10000:20000))/mean(data_1);
 % gam_port = mean(data_port(10000:20000))/mean(data_1);
 
-% gam_sb = 1.11; % For 20 Hz First version
-% gam_port = 0.88;
+%gam_sb = 0.7519; % For 33 Hz
+%gam_port = 1.0306;
 
-gam_sb = 0.8294;
-gam_port = 0.5856;
-
+gam_sb = 0.7194;
+gam_port = 0.7733;
 
 data_port =  data_port ./ gam_port;
 data_sb = data_sb ./ gam_sb;
@@ -25,8 +25,8 @@ timevect = imu_data_aligned.IMU5.matdatenum;
 % windowlength = 3000;
 % frequency = 100;
 
-windowlength = 200;
-frequency = 20;
+windowlength = 2000/3;
+frequency = 100/3;
 threshold = 0.01;
 %threshold = 0.10;
 
@@ -47,6 +47,9 @@ threshold = 0.01;
 % 
 % [gp_MOM_sb.exceedtime,gp_MOM_sb.exceedlevel1000] = maia_findavexceedlevel(gp_MOM_sb,1000);
 % [gp_MOM_port.exceedtime,gp_MOM_port.exceedlevel1000] = maia_findavexceedlevel(gp_MOM_port,1000);
+
+gp_sb.entropy = maia_gpentropy(gp_sb);
+gp_port.entropy = maia_gpentropy(gp_port);
 
 function [gp_MLE] = maia_recursivegp(data,timevect,windowlength,threshold,frequency)
 
