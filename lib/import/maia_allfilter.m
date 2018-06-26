@@ -43,11 +43,11 @@ filterdata = filter(df,[indata';zeros(D,1)]);
 filterdata = filterdata(D+1:end);
 % info(df)
 %Plot filtered data
-figure
-plot(indata,'b--')
-hold
-plot(filterdata,'r')
-legend('Original Data','Filtered Data')
+% figure
+% plot(indata,'b--')
+% hold
+% plot(filterdata,'r')
+% legend('Original Data','Filtered Data')
 
 LP_ADIS_sig = filterdata;
 end

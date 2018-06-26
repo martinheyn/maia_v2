@@ -81,15 +81,15 @@ for k=1:1:length(comp)
 end
 
 for k=1:1:length(compentropy)
-   if (compentropy(k) > 0.25) % Port side dominates
+   if (compentropy(k) > 0.17) % Port side dominates
            directionestientropy(k) = 1; % PORT
        
-   elseif (compentropy(k) < -0.25) % Starboard side dominates
+   elseif (compentropy(k) < -0.17) % Starboard side dominates
            directionestientropy(k) = 2; % STARBOARD
    
    else
-    if gp_sb.entropy(k) > -4.8 % Starboard side is significant enough
-        if gp_port.entropy(k) > -4.8 % AND Port side is significant enough
+    if gp_sb.entropy(k) > -4.5 % Starboard side is significant enough
+        if gp_port.entropy(k) > -4.5 % AND Port side is significant enough
             directionestientropy(k) = 3; % BOTH SIDES AFFECTED => AHEAD ATTACK
         end
     end

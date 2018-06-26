@@ -24,6 +24,7 @@ inputOptions = {'Just filter','Filter and resample','Back :)'};
 
             switch button2
                 case 1
+                    highpa = 0;
                     prompt = {'F_s:','F_pass','F_stop:'};
                     userinput = inputdlg(prompt,'Frequencies',1,{'F_s','F_pass','F_stop'});
                     Fs = str2double(cell2mat(userinput(1)));
@@ -39,6 +40,7 @@ inputOptions = {'Just filter','Filter and resample','Back :)'};
                       'PassbandRipple',Apass,'SampleRate',Fs,'DesignMethod','equiripple');
                   
                 case 2
+                    highpa = 1;
                     prompt = {'F_s:','F_stop','F_pass:'};
                     userinput = inputdlg(prompt,'Frequencies',1,{'F_s','F_stop','F_pass'});
                     Fs = str2double(cell2mat(userinput(1)));
@@ -57,6 +59,7 @@ inputOptions = {'Just filter','Filter and resample','Back :)'};
                     fvtool(df,'Fs',Fs,'Color','White') % Visualize filter
                     
                 case 3
+                    highpa = 1;
                     prompt = {'F_s:','F_stop1','F_pass1:','F_pass2','F_stop2:'};
                     userinput = inputdlg(prompt,'Frequencies',1,{'F_s:','F_stop1','F_pass1:','F_pass2','F_stop2:'});
                     Fs = str2double(cell2mat(userinput(1)));
@@ -76,7 +79,7 @@ inputOptions = {'Just filter','Filter and resample','Back :)'};
                         'SampleRate',Fs,'DesignMethod','equiripple');
 
                     %df = designfilt;
-                    fvtool(df,'Fs',Fs,'Color','White') % Visualize filter
+                    %fvtool(df,'Fs',Fs,'Color','White') % Visualize filter
             end
                 
             if button2 ~= 4
@@ -97,9 +100,13 @@ inputOptions = {'Just filter','Filter and resample','Back :)'};
                         imu_data_aligned.(selectedIMU).signal_surge = maia_allfilter(imu_data_aligned_prefiltered.(selectedIMU).signal_surge,Fs,df);
                         imu_data_aligned.(selectedIMU).signal_sway = maia_allfilter(imu_data_aligned_prefiltered.(selectedIMU).signal_sway,Fs,df);
                         
-                        temp_heave_mean = mean(imu_data_aligned_prefiltered.(selectedIMU).signal_heave); % This is to preserve the gravity offset
-                        imu_data_aligned.(selectedIMU).signal_heave = maia_allfilter(detrend(imu_data_aligned_prefiltered.(selectedIMU).signal_heave),Fs,df) + temp_heave_mean;
-                        clear temp_heave_mean
+                        if highpa == 1
+                            imu_data_aligned.(selectedIMU).signal_heave = maia_allfilter(detrend(imu_data_aligned_prefiltered.(selectedIMU).signal_heave),Fs,df);
+                        else
+                            temp_heave_mean = mean(imu_data_aligned_prefiltered.(selectedIMU).signal_heave); % This is to preserve the gravity offset
+                            imu_data_aligned.(selectedIMU).signal_heave = maia_allfilter(detrend(imu_data_aligned_prefiltered.(selectedIMU).signal_heave),Fs,df) + temp_heave_mean;
+                            clear temp_heave_mean 
+                        end
                         
                         imu_data_aligned.(selectedIMU).signal_roll = maia_allfilter(imu_data_aligned_prefiltered.(selectedIMU).signal_roll,Fs,df);
                         imu_data_aligned.(selectedIMU).signal_pitch = maia_allfilter(imu_data_aligned_prefiltered.(selectedIMU).signal_pitch,Fs,df);
@@ -125,4 +132,7 @@ inputOptions = {'Just filter','Filter and resample','Back :)'};
 			case 3
 				fprintf('OK, going back doing nothing\n');
 			
-			end
+        end
+            
+        clear highpa
+                        
