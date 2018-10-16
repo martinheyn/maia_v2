@@ -56,14 +56,14 @@ end
 %     
 % end
 for k=1:1:length(comp)
-   if (comp(k) > 0.001) % Port side dominates
+   if (comp(k) > 0.0015) % Port side dominates
        if gp_port.exceedlevel50(k) > 0.01 % Port side is significant enough
            directionesti(k) = 1; % PORT
        else
            directionesti(k) = 0; % NOT PORT
        end
        
-   elseif (comp(k) < -0.001) % Starboard side dominates
+   elseif (comp(k) < -0.0015) % Starboard side dominates
        if gp_sb.exceedlevel50(k) >  0.01% Starboard side is significant enough
            directionesti(k) = 2; % STARBOARD
        else
@@ -81,10 +81,10 @@ for k=1:1:length(comp)
 end
 
 for k=1:1:length(compentropy)
-   if (compentropy(k) > 0.17) % Port side dominates
+   if (compentropy(k) > 0.20) % Port side dominates
            directionestientropy(k) = 1; % PORT
        
-   elseif (compentropy(k) < -0.17) % Starboard side dominates
+   elseif (compentropy(k) < -0.20) % Starboard side dominates
            directionestientropy(k) = 2; % STARBOARD
    
    else

@@ -77,7 +77,7 @@ colormap('jet')
 view(2)
 hold
 grid on
-dec = 150;
+dec = 300;
 st = 1.5;
 L = 1*200;
 am = st*0.015;

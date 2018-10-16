@@ -4,8 +4,12 @@ data_1 = sqrt(detrend(imu_data.IMU1.signal_surge).^2 + detrend(imu_data.IMU1.sig
 data_port = sqrt(detrend(imu_data.IMU5.signal_surge).^2 + detrend(imu_data.IMU5.signal_sway).^2 + detrend(imu_data.IMU5.signal_heave).^2);
 data_sb = sqrt(detrend(imu_data.IMU4.signal_surge).^2 + detrend(imu_data.IMU4.signal_sway).^2 + detrend(imu_data.IMU4.signal_heave).^2);
 
-gam_sb = 1.0535;
-gam_port = 1.5460;
+%gam_sb = 1.1035;
+%gam_port = 1.5560;
+
+gam_sb = 1;
+gam_port = 1;
+
 
 data_port =  data_port ./ gam_port;
 data_sb = data_sb ./ gam_sb;
@@ -31,8 +35,8 @@ timevect = imu_data_aligned.IMU5.matdatenum;
 % windowlength = 3000;
 % frequency = 100;
 
-windowlength = 250;
-frequency = 25;
+windowlength = 200;
+frequency = 20;
 threshold = 0.01;
 %threshold = 0.10;
 
