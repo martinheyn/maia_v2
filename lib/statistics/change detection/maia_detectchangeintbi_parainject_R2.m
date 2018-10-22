@@ -7,6 +7,7 @@ function[g_Snu] = maia_detectchangeintbi_parainject_R2(data,S_ref,nu_ref,S_vec,n
     nu0 = nu_ref;
    
     S = zeros(2,2);
+    %figure
     
     for k = windowsize+1:1:length(data)
         sample = data(k-windowsize:k,:);
@@ -14,13 +15,19 @@ function[g_Snu] = maia_detectchangeintbi_parainject_R2(data,S_ref,nu_ref,S_vec,n
         S(:,:) = S_vec(k,:,:);
         nu = nu_vec(k);
         
+        
         for m = 1:1:length(sample)
             pdf0(m) = (1/(2*pi*sqrt(det(S0))))*(1+((1/nu0)*((sample(m,:) - mu0)*inv(S0)*(sample(m,:)-mu0)')))^(-(2+nu0)/2);
             pdf1(m) = (1/(2*pi*sqrt(det(S))))*(1+((1/nu)*((sample(m,:) - mu0)*inv(S)*(sample(m,:)-mu0)')))^(-(2+nu)/2);
         end
+%         tri = delaunay(sample(:,1),sample(:,2));
+%         trisurf(tri,sample(:,1),sample(:,2),pdf1)
+%         xlim([-0.10, 0.10]);
+%         ylim([-0.10, 0.10]);
+%         zlim([0 3000]);
+%         pause(0.001);  
         
-        %g_Snu(k) = sum(pdf1.*log(pdf1./pdf0));
-        g_Snu(k) = sum(log(pdf1./pdf0));
+        g_Snu(k) = sum(pdf1*log(pdf1/pdf0));
     end
 
 end
