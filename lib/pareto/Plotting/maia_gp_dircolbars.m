@@ -11,22 +11,20 @@ directionestientropy = zeros(length(comp),1);
 tempHeading = maia_from180to360(Heading_Deg(startinx:endinx));
 bodyDrift = maia_subdegrees(Ice_Drift_Direction_DB_deg(startinx:endinx),tempHeading);
 bodyDrift2 = maia_subdegrees(Ice_Drift_Direction_IPS_deg(startinx:endinx),tempHeading);
+
 directionDB = zeros(length(bodyDrift),1);
+
 zeitvektor = tempdate(startinx:endinx);
 
 for k=1:1:length(bodyDrift)
-   if bodyDrift < 340
-       if bodyDrift > 200
+   if bodyDrift(k) < 175
         directionDB(k) = 1; % PORT
-       end
-   elseif bodyDrift > 20 
-       if bodyDrift < 160
-        directionDB(k) = 2; % STARBOARD
-       end
-   elseif bodyDrift < 20 
-        directionDB(k) = 3;
-   elseif bodyDrift > 340
+        
+   elseif bodyDrift(k) < 185 
         directionDB(k) = 3; % AHEAD
+        
+   elseif bodyDrift(k) < 360 
+        directionDB(k) = 2; % STARBOARD     
    end
 end
        

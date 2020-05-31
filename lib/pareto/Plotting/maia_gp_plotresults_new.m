@@ -132,7 +132,8 @@ colormap(colmap);
 set(gca,'FontSize',12,'FontName','Times New Roman')
 
 subplot(5,1,5)
-heatmap(directionestientropyfilt');
+%heatmap(directionestientropyfilt');
+heatmap(directionDB');
 colormap(colmap);
 %ylabel({'Side of';'ice action'})
 set(gca,'FontSize',12,'FontName','Times New Roman')
