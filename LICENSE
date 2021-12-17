@@ -19,3 +19,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Additional condition:
+If you use parts of this code, please refer to
+Heyn, Hans-Martin, Mogens Blanke, and Roger Skjetne. "Ice condition assessment using onboard accelerometers and statistical change detection." IEEE Journal of Oceanic Engineering 45.3 (2019): 898-914.
+
+@article{heyn2019ice,
+  title={Ice condition assessment using onboard accelerometers and statistical change detection},
+  author={Heyn, Hans-Martin and Blanke, Mogens and Skjetne, Roger},
+  journal={IEEE Journal of Oceanic Engineering},
+  volume={45},
+  number={3},
+  pages={898--914},
+  year={2019},
+  publisher={IEEE}
+}
